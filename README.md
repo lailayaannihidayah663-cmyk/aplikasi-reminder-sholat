@@ -26,8 +26,6 @@ Aplikasi pengingat waktu sholat berbasis lokasi yang dirancang dengan antarmuka 
 * **Asset Visual:** `google_fonts` (Poppins) untuk tampilan yang modern dan bersih.
 
 ### 5. Rencana Kerja (Timeline 1 Bulan)
-
-### 5. Rencana Kerja (Timeline 1 Bulan)
 * **Minggu 1:** Setup awal project, integrasi GPS, dan pengambilan data jadwal sholat.
 * **Minggu 2:** Pengembangan logika *countdown* dan sistem penyimpanan data lokal (caching).
 * **Minggu 3:** Desain antarmuka (UI) untuk halaman utama dan modul panduan niat (Aestheticing).
