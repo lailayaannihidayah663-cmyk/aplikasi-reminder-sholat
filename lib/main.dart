@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:adhan/adhan.dart';
+import 'dart:async';
 void main(){
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -8,7 +9,7 @@ void main(){
   ));
 }
 class BackgroundSageAesthetic extends StatefulWidget {
-  @override
+@override
   State<BackgroundSageAesthetic> createState() => _BackgroundSageAestheticState();
 }
 
@@ -20,6 +21,9 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
    PrayerTimes? _prayerTimes;
    bool _isLoading = true;
    String _erroMsg = '';
+   String _countdown ='';
+   String _nextPrayer = '';
+   late Timer _timer;
 
    @override
    void initState(){
@@ -50,11 +54,13 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
         _prayerTimes = PrayerTimes(coordinates, date, params);
         _isLoading = false;
       });
+      _startCountdown();
     } catch (e) {
       setState(() {
         _erroMsg = 'Gagal: $e';
         _isLoading = false; 
       });
+
     }
    }
 
@@ -63,6 +69,53 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
     final h = time.hour.toString().padLeft(2, '0');
     final m = time.minute.toString().padLeft(2, '0');
     return '$h:$m';
+   }
+
+   @override
+   void dispose(){
+    _timer.cancel();
+    super.dispose();
+   }
+
+   void _startCountdown(){
+    _timer = Timer.periodic(const Duration(seconds: 1), (_){
+      if (_prayerTimes == null) return;
+
+      final now = DateTime.now();
+      final prayers = {
+        'Subuh': _prayerTimes!.fajr,
+        'Dzuhur': _prayerTimes!.dhuhr,
+        'Ashar': _prayerTimes!.asr,
+          'Maghrib': _prayerTimes!.maghrib,
+        'Isya': _prayerTimes!.isha,
+      };
+
+      DateTime? next;
+      String nextName = '';
+
+      for (var entry in prayers.entries){
+        if (entry.value.isAfter(now)) {
+          next =entry.value;
+          nextName =entry.key;
+          break;
+
+        }
+      }
+
+      if (next != null) {
+        final diff = next.difference(now);
+        final h = diff.inHours.toString().padLeft(2, '0');
+        final m = (diff.inMinutes % 60).toString().padLeft(2, '0');
+         final s = (diff.inSeconds % 60).toString().padLeft(2, '0');
+         setState(() {
+           _countdown = '$h:$m:$s';
+           _nextPrayer = nextName;
+         });
+        
+
+      }
+
+    });
    }
    @override
    Widget build(BuildContext context) {
@@ -165,6 +218,29 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
           const SizedBox(height: 12),
           const Divider(color: textColor, thickness: 0.5),
           const SizedBox(height: 8),
+          if  (_nextPrayer.isEmpty) ...[
+            Text(
+              'Menuju $_nextPrayer',
+              style: const TextStyle(
+                color: textColor,
+                fontSize: 13,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              _countdown,
+              style: const TextStyle(
+                color: textColor,
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 2,
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Divider(color: textColor, thickness: 0.5),
+            const SizedBox(height: 8),
+          ],
+
           ...sholat.map((s) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 6),
             child: Row(
