@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:adhan/adhan.dart';
 import 'dart:async';
+import 'theme_provider.dart';
 void main(){
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -14,9 +15,11 @@ class BackgroundSageAesthetic extends StatefulWidget {
 }
 
 class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
-  static const Color sageBase = Color(0xFFA7BEAE);
-   static const Color sageLight = Color(0xFFE0E7E2);
-   static const Color textColor = Color(0xFF55A7D6);
+  Color get sageBase => _currentTheme.sageBase;
+  Color get sageLight => _currentTheme.sageLight;
+  Color get textColor => _currentTheme.textColor;
+   
+   
 
    PrayerTimes? _prayerTimes;
    bool _isLoading = true;
@@ -24,6 +27,8 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
    String _countdown ='';
    String _nextPrayer = '';
    late Timer _timer;
+   AppTheme _currentTheme = AppThemes[0];
+   
 
    @override
    void initState(){
@@ -172,6 +177,47 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+                    const SizedBox(height: 16),
+
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: AppTheme.map(theme) => GestureDetector(
+                          onTap: (){
+                            setState ((){
+                              _currentTheme = theme;
+                            });
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 6),
+                            padding: const EdgeInsets.symmetric(horizontal: 12,)vertical: 6),
+                            decoration: BoxDecoration
+                              color: _currentTheme == theme
+                                  ? Colors.white.withOpacity(0.5)
+                                  : Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: Colors.white.withOpacity(0.6),
+                                width: 1,
+                              ),
+                          ),
+                          child: Text(
+                            theme.name,
+                            style: TextStyle(
+                              color: textColor,
+                              fontSize: 13,
+                              fontWeight: _currentTheme == theme
+                                ? FontWeight.bold
+                                : FontWeight.normal,   
+                            ),
+                          ),
+                        ),
+                      )).toList(),
+                    ),
+                  ),
+
+
                     const Spacer(),
 
                     _isLoading? const CircularProgressIndicator(color: textColor): _erroMsg.isNotEmpty? Text( _erroMsg,
