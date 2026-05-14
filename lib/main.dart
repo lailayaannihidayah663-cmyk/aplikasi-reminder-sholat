@@ -27,7 +27,7 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
    String _countdown ='';
    String _nextPrayer = '';
    late Timer _timer;
-   AppTheme _currentTheme = AppThemes[0];
+   AppTheme _currentTheme = appThemes[0];
    
 
    @override
@@ -91,7 +91,7 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
         'Subuh': _prayerTimes!.fajr,
         'Dzuhur': _prayerTimes!.dhuhr,
         'Ashar': _prayerTimes!.asr,
-          'Maghrib': _prayerTimes!.maghrib,
+        'Maghrib': _prayerTimes!.maghrib,
         'Isya': _prayerTimes!.isha,
       };
 
@@ -128,7 +128,7 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -157,9 +157,9 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
               child: Center(
                 child: Column(
                   children: [
-                    const SizedBox(height: 60),
+                    SizedBox(height: 60),
 
-                    const Text(
+                     Text(
                       "Reminder Sholat",
                       style: TextStyle(
                         fontSize: 32,
@@ -169,7 +169,7 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    const Text(
+                    Text(
                       "(Mualaf Friendly)",
                       style: TextStyle(
                         fontSize: 18,
@@ -183,16 +183,16 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: AppTheme.map(theme) => GestureDetector(
+                        children: appThemes.map((theme) => GestureDetector(
                           onTap: (){
                             setState ((){
                               _currentTheme = theme;
                             });
                           },
                           child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 6),
-                            padding: const EdgeInsets.symmetric(horizontal: 12,)vertical: 6),
-                            decoration: BoxDecoration
+                            margin: EdgeInsets.symmetric(horizontal: 6),
+                            padding:  EdgeInsets.symmetric(horizontal: 12,vertical: 6),
+                            decoration:  BoxDecoration(
                               color: _currentTheme == theme
                                   ? Colors.white.withOpacity(0.5)
                                   : Colors.white.withOpacity(0.2),
@@ -220,15 +220,14 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
 
                     const Spacer(),
 
-                    _isLoading? const CircularProgressIndicator(color: textColor): _erroMsg.isNotEmpty? Text( _erroMsg,
+                    _isLoading?  CircularProgressIndicator(color: textColor): _erroMsg.isNotEmpty? Text( _erroMsg,
                     style: const TextStyle(color: Colors.red, fontSize: 14),
                     textAlign: TextAlign.center): _buildJadwalCard(),
 
                     const Spacer(),
-                  ],
-                ),
+          ]),
               ),
-            )
+            ),
           ],
         ),
       )
@@ -253,7 +252,7 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
       ),
       child: Column(
         children: [
-          const Text(
+          Text(
             "Jadwal Sholat Hari ini",
             style: TextStyle(
               color: textColor,
@@ -262,12 +261,12 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
             ),
           ),
           const SizedBox(height: 12),
-          const Divider(color: textColor, thickness: 0.5),
+          Divider(color: textColor, thickness: 0.5),
           const SizedBox(height: 8),
-          if  (_nextPrayer.isEmpty) ...[
+          if  (_nextPrayer.isNotEmpty) ...[
             Text(
               'Menuju $_nextPrayer',
-              style: const TextStyle(
+              style: TextStyle(
                 color: textColor,
                 fontSize: 13,
               ),
@@ -275,7 +274,7 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
             const SizedBox(height: 4),
             Text(
               _countdown,
-              style: const TextStyle(
+              style:  TextStyle(
                 color: textColor,
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -283,7 +282,7 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
               ),
             ),
             const SizedBox(height: 12),
-            const Divider(color: textColor, thickness: 0.5),
+            Divider(color: textColor, thickness: 0.5),
             const SizedBox(height: 8),
           ],
 
@@ -293,13 +292,13 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(s['nama']!,
-                  style: const TextStyle(
+                  style:  TextStyle(
                     color: textColor,
                     fontWeight: FontWeight.w600,
                     fontSize: 15,
                   )),
                 Text(s['waktu']!,
-                  style: const TextStyle(
+                  style:  TextStyle(
                     color: textColor,
                     fontSize: 15,
                   )),

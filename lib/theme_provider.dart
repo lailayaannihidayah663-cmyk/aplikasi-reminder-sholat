@@ -14,7 +14,7 @@ class AppTheme {
   });
 }
 
-final List<AppTheme>AppThemes = [
+final List<AppTheme>appThemes = [
   AppTheme(
     name: '🌿 Sage',
     sageBase: const Color(0xFFA7BEAE),
