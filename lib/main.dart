@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:adhan/adhan.dart';
 import 'dart:async';
 import 'theme_provider.dart';
+import 'panduan_niat.dart';
 void main(){
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -178,7 +179,6 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
                       ),
                     ),
                     const SizedBox(height: 16),
-
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -216,6 +216,40 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
                       )).toList(),
                     ),
                   ),
+                
+                  const SizedBox(height: 12),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(
+                        context, MaterialPageRoute(
+                          builder: (context) => PanduanNiatPage(
+                            bgLight: bgLight,
+                             bgBase: bgBase,
+                              textColor: textColor
+                              ),
+                          ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.5),
+                          width: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    '📖Panduan Niat Sholat',
+                    style: TextStyle(
+                      color: textColor,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                    ),
+                  ),
 
 
                     const Spacer(),
@@ -225,7 +259,7 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
                     textAlign: TextAlign.center): _buildJadwalCard(),
 
                     const Spacer(),
-          ]),
+                  ]),
               ),
             ),
           ],

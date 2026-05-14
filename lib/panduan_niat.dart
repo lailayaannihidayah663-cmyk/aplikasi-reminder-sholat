@@ -22,29 +22,28 @@ class PanduanNiatPage extends StatelessWidget{
       },
       {
         'sholat': 'Dzuhur',
-        'arab'  : 'اُصَلِّيْ فَرْضَ الظُّهْرِ أَرْبَعَ رَكَعاَتٍ مُسْتَقْبِلَ الْقِبْلَةِ أَدَاءً لله تَعَالَى'
+        'arab'  : 'اُصَلِّيْ فَرْضَ الظُّهْرِ أَرْبَعَ رَكَعاَتٍ مُسْتَقْبِلَ الْقِبْلَةِ أَدَاءً لله تَعَالَى',
         'latin' : 'Ushalli fardhadh dhuhri arba\'a raka\'atin mustaqbilal qiblati adaa\'an lillahi ta\'ala',
         'arti'  :'Aku niat sholat fardhu Dzuhur empat rakaat menghadap kiblat karena Allah Ta\'ala',
       },
-            {
+      {
         'sholat': 'Ashar',
-        'arab'  : 'أُصَلِّى فَرْضَ العَصْرِأَرْبَعَ رَكَعاَتٍ مُسْتَقْبِلَ الْقِبْلَةِ أَدَاءً لله تَعَالَى'
+        'arab'  : 'أُصَلِّى فَرْضَ العَصْرِأَرْبَعَ رَكَعاَتٍ مُسْتَقْبِلَ الْقِبْلَةِ أَدَاءً لله تَعَالَى',
         'latin' : 'Ushalli fardhal \'ashri arba\'a raka\'atin mustaqbilal qiblati adaa\'an lillahi ta\'ala',
         'arti'  :'Aku niat sholat fardhu Ashar empat rakaat menghadap kiblat karena Allah Ta\'ala',
       },
-            {
+      {
         'sholat': 'Maghrib',
-        'arab'  : 'أُصَلِّى فَرْضَ المَغْرِبِ ثَلاَثَ رَكَعاَتٍ مُسْتَقْبِلَ الْقِبْلَةِ أَدَاءً لله تَعَالَ'
+        'arab'  : 'أُصَلِّى فَرْضَ المَغْرِبِ ثَلاَثَ رَكَعاَتٍ مُسْتَقْبِلَ الْقِبْلَةِ أَدَاءً لله تَعَالَ',
         'latin' : 'Ushalli fardhal maghribi tsalatsa raka\'atin mustaqbilal qiblati adaa\'an lillahi ta\'ala',
         'arti'  :'Aku niat sholat fardhu Maghrib tiga  rakaat menghadap kiblat karena Allah Ta\'ala',
       },
-            {
+      {
         'sholat': 'Isya',
-        'arab'  : 'أُصَلِّى فَرْضَ العِشَاء ِأَرْبَعَ رَكَعاَتٍ مُسْتَقْبِلَ الْقِبْلَةِ أَدَاءً لله تَعَالَى'
+        'arab'  : 'أُصَلِّى فَرْضَ العِشَاء ِأَرْبَعَ رَكَعاَتٍ مُسْتَقْبِلَ الْقِبْلَةِ أَدَاءً لله تَعَالَى',
         'latin' : 'Ushalli fardhal \'isya\'i arba\'a raka\'atin mustaqbilal qiblati adaa\'an lillahi ta\'ala',
         'arti'  :'Aku niat sholat fardhu isya empat rakaat menghadap kiblat karena Allah Ta\'ala',
       },
-      
     ];
 
     return Scaffold(
@@ -53,8 +52,8 @@ class PanduanNiatPage extends StatelessWidget{
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Aligment.topLeft,
-            end: Aligment.bottomRight,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             colors: [bgLight, bgBase],
           ),
 
@@ -65,7 +64,7 @@ class PanduanNiatPage extends StatelessWidget{
             children: [
               Padding(
                 padding: const EdgeInsets.all(16),
-                child: Row,
+                child: Row(
                 children: [
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
@@ -80,6 +79,7 @@ class PanduanNiatPage extends StatelessWidget{
                     ),
                   ),
                 ],
+                ),
               ),
               Expanded(
                 child: ListView.builder(
