@@ -223,8 +223,8 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
                       Navigator.push(
                         context, MaterialPageRoute(
                           builder: (context) => PanduanNiatPage(
-                            bgLight: bgLight,
-                             bgBase: bgBase,
+                            bgLight: sageLight,
+                             bgBase: sageBase,
                               textColor: textColor
                               ),
                           ),
@@ -240,15 +240,15 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
                           width: 1,
                         ),
                       ),
-                    ),
-                  ),
-                  child: Text(
+                    child: Text(
                     '📖Panduan Niat Sholat',
                     style: TextStyle(
                       color: textColor,
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                     ),
+                  ),
+                  ),
                   ),
 
 
@@ -284,6 +284,7 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
         color: Colors.white.withOpacity(0.3),
         borderRadius: BorderRadius.circular(16),
       ),
+      child: SingleChildScrollView(
       child: Column(
         children: [
           Text(
@@ -341,6 +342,7 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
             )), 
           ),
         ],
+      ),
       ),
     );
    }
