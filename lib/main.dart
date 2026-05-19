@@ -29,6 +29,15 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
    String _nextPrayer = '';
    late Timer _timer;
    AppTheme _currentTheme = appThemes[0];
+
+  Map<String, bool> _notifEnable ={
+    'Imsak': true,
+    'Subuh': true,
+    'Dzuhur': true,
+    'Ashar': true,
+    'Maghrib': true,
+    'Isya': true, 
+  };
    
 
    @override
@@ -155,28 +164,35 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
               ),
             ),
             SafeArea(
-              child: Center(
+              child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: 60),
-
-                     Text(
+                    Center(
+                     child: Text(
                       "Reminder Sholat",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
                         color: textColor,
                         letterSpacing: 0.5,
                       ),
+                     ),
                     ),
                     const SizedBox(height: 5),
-                    Text(
+                    Center(
+                    child: Text(
                       "(Mualaf Friendly)",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 18,
                         color: textColor,
                         fontWeight: FontWeight.w500,
                       ),
+                    ),
                     ),
                     const SizedBox(height: 16),
                     SingleChildScrollView(
@@ -252,13 +268,13 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
                   ),
 
 
-                    const Spacer(),
+                    const SizedBox(height: 20),
 
                     _isLoading?  CircularProgressIndicator(color: textColor): _erroMsg.isNotEmpty? Text( _erroMsg,
                     style: const TextStyle(color: Colors.red, fontSize: 14),
                     textAlign: TextAlign.center): _buildJadwalCard(),
 
-                    const Spacer(),
+                    const SizedBox(height: 20),
                   ]),
               ),
             ),
@@ -278,14 +294,14 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
       {'nama': 'Isya', 'waktu': _formatTime(_prayerTimes?.isha)},
     ];
     return Container(
-      width: 280,
+      width: 320,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.3),
         borderRadius: BorderRadius.circular(16),
       ),
       child: SingleChildScrollView(
-      child: Column(
+        child: Column(
         children: [
           Text(
             "Jadwal Sholat Hari ini",
@@ -320,27 +336,41 @@ class _BackgroundSageAestheticState extends State<BackgroundSageAesthetic> {
             Divider(color: textColor, thickness: 0.5),
             const SizedBox(height: 8),
           ],
-
           ...sholat.map((s) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 6),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(s['nama']!,
-                  style:  TextStyle(
+                  style: TextStyle(
                     color: textColor,
                     fontWeight: FontWeight.w600,
                     fontSize: 15,
                   )),
-                Text(s['waktu']!,
-                  style:  TextStyle(
-                    color: textColor,
-                    fontSize: 15,
-                  )),
+                Row(
+                  children: [
+                    Text(s['waktu']!,
+                      style: TextStyle(
+                      color: textColor,
+                      fontSize: 15, 
+                      )),
+                    const SizedBox(width: 8),
+                    Switch(
+                      value: _notifEnable[s['nama']]?? true,
+                       onChanged: (val) {
+                        setState(() {
+                          _notifEnable[s['nama']!] = val;
+                        });
+                       },
+                       activeColor: textColor,
+                       ),
+                  ],
+                ),
               ],
 
-            )), 
-          ),
+            ),
+          )),
+          
         ],
       ),
       ),

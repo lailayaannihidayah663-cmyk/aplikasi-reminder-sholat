@@ -1,4 +1,4 @@
-import 'package:flutter_notification/flutter_local_notification.dart';
+import 'package:flutter_notifications/flutter_local_notifications.dart';
 import 'package:adhan/adhan.dart';
 
 class NotificationService {
@@ -47,7 +47,7 @@ class NotificationService {
       }
     });
 
-  }
+  \}
   
     
 }
